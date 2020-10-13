@@ -59,7 +59,31 @@
   const form = document.getElementById('form');
   const output = document.getElementById('output');
   const download = document.getElementById('download');
-  
+
+  const downloadBlobAsFile = function(data, filename) {
+  const contentType = 'text/plain';
+    if(!data) {
+        console.error(' No data')
+        return;
+    }
+
+    if(!filename) filename = 'filetodonwload.txt'
+
+    if(typeof data === "object"){
+        data = JSON.stringify(data, undefined, 4)
+    }
+
+    var blob = new Blob([data], {type: contentType}),
+        e    = document.createEvent('MouseEvents'),
+        a    = document.createElement('a')
+
+    a.download = filename
+    a.href = window.URL.createObjectURL(blob)
+    a.dataset.downloadurl =  [contentType, a.download, a.href].join(':')
+    e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+    a.dispatchEvent(e)
+  }
+
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     console.log(event.target);
@@ -79,5 +103,9 @@
     form.style.display = 'none';
     output.style.display = download.style.display = 'block';
   });
+
+  download.addEventListener('click', function () {
+    downloadBlobAsFile(output.innerText, form.star.value + '.txt');
+  })
 </script>
 </html>
