@@ -8,7 +8,7 @@ module.exports = async (planets, callback) => planets.filter((planet, index) => 
       .split('-')
       .filter(part => wordList.check(part)).length === 2;
   if(passes) {
-    await callback(planet);
+    callback(planet);
     found++;
   }
   progress.update(index, { found });
