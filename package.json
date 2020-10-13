@@ -4,7 +4,10 @@
   "description": "Given the name of an Urbit star, lists the planets that star is able to issue. Optionally filters names that contain English words.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "browserify src/index.js > dist/index.js && cp dist/index.js public/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "npm run build",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -20,9 +23,11 @@
   },
   "homepage": "https://github.com/tylershuster/venetia#readme",
   "dependencies": {
+    "browserify": "^17.0.0",
     "check-word": "^1.1.0",
     "cli-progress": "^2.1.1",
     "inquirer": "^6.2.2",
+    "node-fetch": "^2.6.0",
     "urbit-ob": "^3.2.0"
   }
 }

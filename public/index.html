@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Venetia</title>
+  <style>
+    body {
+      max-width: 60rem;
+      margin: 0 auto;
+      display: flex;
+      align-content: center;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 2rem;c
+    }
+    label {
+      width: 100%;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    #output {
+      max-height: 100%;
+      overflow-y: scroll;
+      width: 100%;
+    }
+  </style>
+  <script src="index.js"></script>
+</head>
+<body>
+  <form id="form">
+    <label>
+      <input name="star" type="text" placeholder="Star Name"/>
+    </label>
+    <label for="all">
+      <input id="all" name="filter" type="radio" checked />
+      All Planets
+    </label>
+    <label for="words">
+      <input id="words" name="filter" type="radio" />
+      Has Words
+    </label>
+    <label for="lexical">
+      <input id="lexical" name="filter" type="radio" />
+      Only Words
+    </label>
+    <label for="homophone">
+      <input id="homophone" name="filter" type="radio" />
+      Has Homophone
+    </label>
+    <input type="submit" value="Submit" />
+  </form>
+  <button id="download" style="display: none">Download</button>
+  <pre id="output" style="display: none"></pre>
+</body>
+<script>
+  const form = document.getElementById('form');
+  const output = document.getElementById('output');
+  const download = document.getElementById('download');
+  
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    console.log(event.target);
+    const filter = Array.from(event.target.filter).filter(node => node.checked)[0].id;
+    const star = event.target.star.value;
+    const planets = starToPlanets(star);
+    planets.forEach((planet, index) => {
+      setTimeout(() => {
+        window.filters[filter]([planet], function (planet) {
+          output.innerHTML += "\n" + planet;
+          if (index === planets.length - 1) {
+            alert('done');
+          }
+        });
+      }, index * 20);
+    })
+    form.style.display = 'none';
+    output.style.display = download.style.display = 'block';
+  });
+</script>
+</html>
