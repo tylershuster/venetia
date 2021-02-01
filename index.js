@@ -45,6 +45,17 @@ function generatePlanetNames({ parent, output }) {
       progress.update(index, { found });
       return passes;
     }),
+    double: planets => planets.filter((planet, index) => {
+      const parts = planet
+          .replace('~', '')
+          .split('-');
+      if ( parts[0] == parts[1] ) {
+	      found++;
+	      progress.update(index, { found });
+	      return planet;
+      }
+      return false;
+    }),
     default: planets => planets
   };
 
@@ -79,7 +90,8 @@ inquirer
       choices: [
         {value: 'all', name: 'All possible planets'},
         {value: 'words', name: 'Planets with English words in their names'},
-        {value: 'lexical', name: 'Planets only containing English words'}
+        {value: 'lexical', name: 'Planets only containing English words'},
+        {value: 'double', name: 'Planets only containing doubles like ~dopzod-dopzod'}
       ]
     }
   ])
