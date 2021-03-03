@@ -2,6 +2,8 @@
 
 Venetia is a simple command-line utility for generating a list of planet names issuable from an Urbit star.
 
+[![awesome urbit badge](https://img.shields.io/badge/~-awesome%20urbit-lightgrey)](https://github.com/urbit/awesome-urbit)
+
 ## Installation
 
 Clone this repository and run `npm install` in the directory.
